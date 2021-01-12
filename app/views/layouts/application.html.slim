@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    meta content="width=device-width, initial-scale=1.0" name="viewport" /
+    title News
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body.d-flex.flex-column.layout-body.
+    = render 'shared/header'
+    .container-fluid.flex-grow-1.layout-content.pt-3.pb-4.d-flex.justify-content-center
+      = yield
+    = render 'shared/footer'
