@@ -1,0 +1,15 @@
+.d-flex.justify-content-between
+  h1 All users
+  = link_to 'Create new user', new_account_admin_user_path
+table.table.table-dark.table-bordered
+  thead
+    tr
+      th scope="col"  ID
+      th scope="col"  Username
+      th scope="col"  Email
+      th scope="col"  Role
+      th scope="col"  Action
+  tbody
+    - @users.each do |user|
+      = render user
+

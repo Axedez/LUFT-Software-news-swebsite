@@ -1,0 +1,13 @@
+tr
+  td = user.id
+  td = user.username
+  td = user.email
+  td = user.role
+  td.d-flex.justify-content-around
+    => link_to 'Edit', edit_account_admin_user_path(user)
+    =< link_to 'Delete', account_admin_user_path(user), method: :delete
+
+/ div
+/ = link_to 'Edit', [:account, :admin, user], class: 'btn btn-outline-primary ml-30'
+/ = link_to 'Delete', [:account, :admin, user], class: 'btn btn-outline-primary ml-30'
+/ hr

@@ -9,8 +9,8 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
   body.d-flex.flex-column.layout-body.
-    = render 'shared/header'
+    = render 'shared/account/header'
     = render 'shared/flash_msg'
-    .container-fluid.flex-grow-1.layout-content.pt-3.pb-4.d-flex.justify-content-center
+    .container-fluid.flex-grow-1.layout-content.pt-3.pb-4
       = yield
     = render 'shared/footer'
