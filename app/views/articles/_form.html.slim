@@ -1,0 +1,36 @@
+= javascript_include_tag Ckeditor.cdn_url
+= simple_form_for article do |f|
+  .form-group
+    = f.input :title, label: 'Title',
+              placeholder: :title,
+              input_html: { class: 'form-control mb-2' },
+              required: true,
+              error: 'Can\'t be blank!'
+    br
+    .form-group
+      = f.input :short_description, label: 'Short Description',
+                placeholder: :short_description,
+                input_html: { class: 'form-control mb-2' },
+                error: 'Can\'t be blank!'
+    br
+    .form-group
+      = f.input :image, label: 'Image preview',
+                placeholder: :image,
+                input_html: { class: 'form-control-file  mb-2' }
+    br
+    .form-check.form-check-inline.text-danger
+      = f.input :is_private, as: :boolean, label: 'Private (post will be visible only for registered users)', input_html: { class: 'form-check-input' }
+    hr
+    .form-check.form-check-inline.text-danger
+      = f.input :is_visible, as: :boolean, label: 'Publish (post will be visible only for admins unless you make it published)', input_html: { class: 'form-check-input', checked: 'checked' }
+    hr
+    .form-group
+      = f.input :long_description, as: :ckeditor, label: 'Body',
+                placeholder: :long_description,
+                input_html: { class: 'form-control' },
+                error: 'Can\'t be blank!'
+    br
+    .form-group
+      = f.button :submit, class: 'btn-primary', value: 'Confirm'
+      .float-right
+        = link_to  'Cancel', articles_path, class: 'btn btn-outline-danger'
