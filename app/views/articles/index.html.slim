@@ -2,4 +2,8 @@
   h1.display-4.text-center.mb-4 Articles:
   .items-container
     = link_to 'Create new article', new_article_path, class: 'btn btn-primary' if current_user&.admin?
+    -if @articles.empty?
+      h3 No posts yet...
     = render @articles
+  .d-flex.justify-content-center.mt-3
+    = paginate @articles

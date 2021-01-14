@@ -2,7 +2,7 @@ class Account::Admin::UsersController < Account::Admin::AdminController
   before_action :user, only: :destroy
 
   def index
-    @users = User.all.order(:id)
+    @users = User.all.order(:id).page params[:page]
   end
 
   def new

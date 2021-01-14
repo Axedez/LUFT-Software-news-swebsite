@@ -9,4 +9,6 @@ class User < ApplicationRecord
 
   validates :username, presence: true, length: { maximum: 50 }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true, length: { maximum: 255 }
+
+  paginates_per 10
 end

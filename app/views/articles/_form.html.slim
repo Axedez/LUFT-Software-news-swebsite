@@ -19,10 +19,10 @@
                 input_html: { class: 'form-control-file  mb-2' }
     br
     .form-check.form-check-inline.text-danger
-      = f.input :is_private, as: :boolean, label: 'Private (post will be visible only for registered users)', input_html: { class: 'form-check-input', checked: 'none' }
+      = f.input :is_private, as: :boolean, label: 'Private (post will be visible only for registered users)', input_html: { class: 'form-check-input' }
     hr
     .form-check.form-check-inline.text-danger
-      = f.input :is_visible, as: :boolean, label: 'Publish (post will be visible only for admin unless you make it published)', input_html: { class: 'form-check-input', checked: 'checked' }
+      = f.input :is_visible, as: :boolean, label: 'Publish (post will be visible only for admins unless you make it published)', input_html: { class: 'form-check-input', checked: 'checked' }
     hr
     .form-group
       = f.input :long_description, as: :ckeditor, label: 'Body',

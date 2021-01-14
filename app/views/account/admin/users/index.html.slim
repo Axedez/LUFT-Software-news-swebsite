@@ -12,4 +12,6 @@ table.table.table-dark.table-bordered
   tbody
     - @users.each do |user|
       = render user
+.d-flex.justify-content-center.mt-3
+  = paginate @users
 

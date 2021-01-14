@@ -1,20 +1,20 @@
 class ArticlesController < ApplicationController
-  before_action :access_admin, only: %i[new create destroy edit]
-  before_action :published_posts
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  before_action :published_article, only: %i[index show]
 
-  def index
-    @articles = Article.all
-  end
+  def index; end
 
   def show
-    @article = Article.find(params[:id])
+    @article = @articles.find(params[:id])
   end
 
   def new
+    authorize :article
     @article = Article.new
   end
 
   def create
+    authorize :article
     @article = Article.new(article_params)
     @article.user_id = current_user.id
     if @article.save
@@ -27,6 +27,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    authorize :article
     @article = Article.find(params[:id])
   end
 
@@ -42,6 +43,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    authorize :article
     @article = Article.find(params[:id])
     @article.destroy if @article.present?
     redirect_to articles_path
@@ -54,7 +56,14 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :short_description, :long_description, :image, :is_private, :is_visible)
   end
 
-  def access_admin
-    redirect_to root_path unless current_user&.admin?
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referer || root_path)
+  end
+
+  def published_article
+    @articles = current_user&.admin? ? Article.all : Article.all.visible
+    @articles = user_signed_in? ? @articles : @articles.public_posts
+    @articles = @articles.page params[:page]
   end
 end
