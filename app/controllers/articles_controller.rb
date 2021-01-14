@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+  before_action :access_admin, only: %i[new create destroy edit]
+  before_action :published_posts
+
   def index
     @articles = Article.all
   end
@@ -48,6 +51,10 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :short_description, :long_description, :image, :is_private)
+    params.require(:article).permit(:title, :short_description, :long_description, :image, :is_private, :is_visible)
+  end
+
+  def access_admin
+    redirect_to root_path unless current_user&.admin?
   end
 end

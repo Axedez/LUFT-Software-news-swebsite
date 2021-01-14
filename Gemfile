@@ -23,6 +23,7 @@ gem 'rolify'
 gem 'font_awesome5_rails', '~> 1.2.0'
 gem 'uglifier'
 gem 'jquery-rails'
+gem "pundit"
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '~> 3.3.6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
