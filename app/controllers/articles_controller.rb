@@ -1,25 +1,24 @@
 class ArticlesController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  before_action :published_article, only: %i[index show]
+  before_action :published_article, except: %i[new create]
+  before_action :authorize_article, except: %i[index show]
 
   def index; end
 
   def show
-    @article = @articles.find(params[:id])
+    @article = @articles.find_by!(reference: params[:reference])
   end
 
   def new
-    authorize :article
     @article = Article.new
   end
 
   def create
-    authorize :article
     @article = Article.new(article_params)
     @article.user_id = current_user.id
     if @article.save
       redirect_to articles_path
-      flash[:success] = "Article \"#{@article.title}\" with id:#{@article.id} has been succesfully created!"
+      flash[:success] = "Article \"#{@article.title}\" with reference:#{@article.reference} has been succesfully created!"
     else
       flash.now[:warning] = 'Check requirements!'
       render :new
@@ -27,12 +26,11 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    authorize :article
-    @article = Article.find(params[:id])
+    @article = @articles.find_by!(reference: params[:reference])
   end
 
   def update
-    @article = Article.find(params[:id])
+    @article = @articles.find_by!(reference: params[:reference])
     if @article.update(article_params)
       redirect_to article_path(@article)
       flash[:success] = "News \"#{@article.title}\" with id:#{@article.id} has been edited"
@@ -43,8 +41,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    authorize :article
-    @article = Article.find(params[:id])
+    @article = @articles.find_by!(reference: params[:reference])
     @article.destroy if @article.present?
     redirect_to articles_path
     flash[:danger] = "Article \"#{@article.title}\" with id:#{@article.id} has been deleted"
@@ -57,13 +54,17 @@ class ArticlesController < ApplicationController
   end
 
   def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
+    flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to(request.referer || root_path)
   end
 
   def published_article
     @articles = current_user&.admin? ? Article.all : Article.all.visible
     @articles = user_signed_in? ? @articles : @articles.public_posts
-    @articles = @articles.page params[:page]
+    @articles = @articles.ordered.page params[:page]
+  end
+
+  def authorize_article
+    authorize :article
   end
 end

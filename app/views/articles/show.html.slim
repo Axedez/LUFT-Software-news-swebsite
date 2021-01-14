@@ -14,4 +14,4 @@
       = link_to 'Back', articles_path, class: 'btn btn-dark text-center', id: 'button-width-120'
       - if current_user&.admin?
         = link_to 'Edit', edit_article_path(@article), class: 'btn btn-warning', id: 'button-width-120'
-        = link_to 'Delete', article_path(@article), method: :delete, data: { confirm: t('account.admin.osbbs.show.confirmation') }, class: 'btn btn-danger float-right', id: 'button-width-120'
+        = link_to 'Delete', article_path(@article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-right', id: 'button-width-120'
