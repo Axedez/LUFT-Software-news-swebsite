@@ -1,0 +1,39 @@
+.custom-form-wrapper.min-width-50
+  section
+    .container
+      .content-abc.mx-auto.shadow.m-3.pb-5
+        h1.pt-4.font-weight-bold.row.justify-content-center Edit user profile
+        hr
+        = simple_form_for [:account, :admin, @user] do |f|
+          .container.text-danger
+            = render "devise/shared/error_messages", resource: @user
+          .container.form-prop
+            .container.form-horizontal.mb-2.mt-4
+              p.form-group
+                .row
+                  i.fas.fa-user.fa-lg.fa-fw.mt-2.control-label.col-sm-2.icon-prop
+                  .col-sm-10
+                    = f.input :username, autofocus: true, label: false,
+                            placeholder: 'Username',
+                            autocomplete: "username",
+                            input_html: { class: 'form-control input-prop' }
+              p.form-group
+                .row
+                  i.fas.fa-envelope.fa-lg.fa-fw.mt-2.control-label.col-sm-2.icon-prop
+                  .col-sm-10
+                    = f.input :email, autofocus: true, label: false,
+                            placeholder: 'Username',
+                            autocomplete: "email",
+                            input_html: { class: 'form-control input-prop' }
+              p.form-group
+                .row
+                  i.fas.fa-address-card.fa-lg.fa-fw.mt-2.control-label.col-sm-2.icon-prop
+                  .col-sm-10
+                    => f.label 'Role:'
+                    = f.select :role, User.roles.keys.to_a
+
+              .form-actions.mt-3
+              .container.d-flex.justify-content-center
+                = f.submit 'Update profile',
+                  class: 'btn btn-primary pl-5 pr-5'
+                = link_to "Back", root_path, class: 'btn btn-dark ml-2'

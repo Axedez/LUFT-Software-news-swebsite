@@ -20,6 +20,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'devise'
 gem 'cancancan', '~> 1.10'
 gem 'rolify'
+gem 'font_awesome5_rails', '~> 1.2.0'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc

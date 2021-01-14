@@ -5,5 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum role: %i[simple admin]
-  has_many :news, dependent: :nullify
+  has_many :articles, dependent: :nullify
+
+  validates :username, presence: true, length: { maximum: 50 }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true, length: { maximum: 255 }
 end

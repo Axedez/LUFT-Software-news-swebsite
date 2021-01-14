@@ -5,7 +5,7 @@ tr
   td = user.role
   td.d-flex.justify-content-around
     => link_to 'Edit', edit_account_admin_user_path(user)
-    =< link_to 'Delete', account_admin_user_path(user), method: :delete
+    =< link_to 'Delete', account_admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }
 
 / div
 / = link_to 'Edit', [:account, :admin, user], class: 'btn btn-outline-primary ml-30'
