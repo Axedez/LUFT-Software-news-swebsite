@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum role: %i[simple admin]
-
+  has_many :news, dependent: :nullify
 end

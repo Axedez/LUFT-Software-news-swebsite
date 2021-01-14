@@ -1,0 +1,11 @@
+.news-item
+  .news-form
+    - unless article.is_private?
+      span.badge.badge-warning.float-right.mb-4 = t('.status')
+    = link_to(image_tag(article.image.url, alt: 'image', class: 'news-img-prev mb-3'), article_path(article)) if article.image?
+    h2.mb-1 = link_to article.title, article_path(article)
+    h6 = article.created_at.strftime(t('time.formats.short'))
+    p.mt-3 = article.short_description
+    hr
+    = link_to 'Edit', edit_article_path(article), class: 'btn btn-warning', id: 'button-width-120'
+    = link_to 'Delete', article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-right', id: 'button-width-120'

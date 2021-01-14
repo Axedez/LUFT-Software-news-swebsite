@@ -1,0 +1,14 @@
+.w-100
+  .news-form.news-w95
+    - unless @article.is_private?
+      span.badge.badge-warning.float-right.mb-4 Status
+    = link_to(image_tag(@article.image.url, alt: 'image', class: 'news-img-prev mb-3'), @article.image.url, target: '_blank') if @article.image?
+    h6 = @article.created_at.strftime(t('time.formats.short'))
+    h1.display-4 = @article.title
+    br
+    p = @article.long_description.html_safe
+    hr
+    .d-flex.justify-content-around
+      = link_to 'Back', articles_path, class: 'btn btn-primary text-center'
+      = link_to 'Edit', edit_article_path(@article), class: 'btn btn-warning', id: 'button-width-120'
+      = link_to 'Delete', article_path(@article), method: :delete, data: { confirm: t('account.admin.osbbs.show.confirmation') }, class: 'btn btn-danger float-right', id: 'button-width-120'
