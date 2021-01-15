@@ -4,13 +4,15 @@ footer.footer.pt-2.mb-0
       .row
         .col-sm-8.col-md-7.py-4
           h4.text-white About
-          p.text-muted This cite was created for LUFT Software as technical test for vacancy. I work on authorization, create user and admin roles and news articles.
+          p.text-muted This site was created for LUFT Software company as technical test for vacancy. Besides technical requirements i added: PunditPolicy, CKEditor for Articles, some RSpec and ShouldaMatchers tests with FactoryBot seeds with Faker helper, Pagination for users and articles and authorization with Devise gem. To log in as admin (to see all features, because some fatures not available for simple role) use mail: admin@mail.com and password: admin123.
         .col-sm-4.offset-md-1.py-4
           h4.text-white Contact Us
           ul.list-unstyled
             li
-              a.text-white href="#"  Follow on Twitter
+              = link_to 'LUFT Software', 'https://luft.software/', target: '_blank', class: 'text-white'
             li
-              a.text-white href="#"  Like on Facebook
+              = link_to 'Linked In', 'https://www.linkedin.com/in/andrii-lebukhorskyi-5873021b5/', target: '_blank', class: 'text-white'
             li
-              a.text-white href="#"  Email me
+              = link_to 'GitHub', 'https://github.com/Axedez', target: '_blank', class: 'text-white'
+            li
+              = mail_to 'andrey.lebuhorskyy@gmail.com', 'Mail me', class: 'text-white'

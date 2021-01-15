@@ -35,6 +35,6 @@ class Article < ApplicationRecord
   end
 
   def set_reference
-    self.reference = 2.times.collect { random_strings + random_digits }.join('') + random_strings
+    self.reference = 2.times.collect { random_strings + random_digits }.join('') + random_strings unless reference
   end
 end
