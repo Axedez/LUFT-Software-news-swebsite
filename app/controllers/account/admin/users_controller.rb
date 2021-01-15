@@ -1,5 +1,5 @@
 class Account::Admin::UsersController < Account::Admin::AdminController
-  before_action :user, only: :destroy
+  before_action :set_user, only: %i[edit update destroy]
 
   def index
     @users = User.all.order(:id).page params[:page]
@@ -20,12 +20,9 @@ class Account::Admin::UsersController < Account::Admin::AdminController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = 'Profile updated'
       redirect_to account_admin_users_path
@@ -43,8 +40,8 @@ class Account::Admin::UsersController < Account::Admin::AdminController
 
   private
 
-  def user
-    @user ||= User.find_by(id: params[:id])
+  def set_user
+    @user = User.find(params[:id])
   end
 
   def user_params
