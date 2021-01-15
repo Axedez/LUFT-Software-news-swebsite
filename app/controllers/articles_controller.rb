@@ -2,11 +2,11 @@ class ArticlesController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   before_action :published_article, except: %i[new create]
   before_action :authorize_article, except: %i[index show]
+  before_action :set_article, only: %i[show edit update destroy]
 
   def index; end
 
   def show
-    @article = @articles.find_by!(reference: params[:reference])
   end
 
   def new
@@ -26,11 +26,9 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = @articles.find_by!(reference: params[:reference])
   end
 
   def update
-    @article = @articles.find_by!(reference: params[:reference])
     if @article.update(article_params)
       redirect_to article_path(@article)
       flash[:success] = "News \"#{@article.title}\" with id:#{@article.id} has been edited"
@@ -41,7 +39,6 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = @articles.find_by!(reference: params[:reference])
     @article.destroy if @article.present?
     redirect_to articles_path
     flash[:danger] = "Article \"#{@article.title}\" with id:#{@article.id} has been deleted"
@@ -66,5 +63,9 @@ class ArticlesController < ApplicationController
 
   def authorize_article
     authorize :article
+  end
+
+  def set_article
+    @article = @articles.find_by!(reference: params[:reference])
   end
 end

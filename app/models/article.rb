@@ -20,7 +20,7 @@ class Article < ApplicationRecord
   private
 
   def image_size_validation
-    errors[:image] << "Should be less than 5MB" if image.size > 5.megabytes
+    errors[:image] << 'Should be less than 5MB' if image.size > 5.megabytes
   end
 
   def random_strings
